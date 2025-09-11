@@ -175,16 +175,16 @@ const Footer = () => {
               <div className="flex items-start">
                 <MapPin size={18} className="mr-3 mt-1 flex-shrink-0" />
                 <span>
-                  123 Construction Avenue
+                  13-6-431/C/52, PVNR Express Way
                   <br />
-                  Business District, Metro City
+                  Pillar No. 102, Ring Road,
                   <br />
-                  MC 12345
+                  Mehdipatnam, Hyderabad, Telangana 500067
                 </span>
               </div>
               <div className="flex items-center">
                 <Phone size={18} className="mr-3" />
-                <span>+1 (555) 123-4567</span>
+                <span>+91 095812 19373</span>
               </div>
               <div className="flex items-center">
                 <Mail size={18} className="mr-3" />
