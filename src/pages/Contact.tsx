@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { useAction } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 const ContactPage = () => {
   const navigate = useNavigate();
+  const sendContactEmail = useAction(api.contacts.sendContactEmail);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -24,21 +29,47 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(`Thank you ${formData.firstName}! Your message has been sent. We'll contact you within 24 hours.`);
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      company: '',
-      projectType: '',
-      budget: '',
-      timeline: '',
-      message: ''
-    });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      await sendContactEmail({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company,
+        projectType: formData.projectType,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        message: formData.message,
+      });
+      
+      setSubmitStatus('success');
+      
+      // Reset form after success
+      setTimeout(() => {
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          company: '',
+          projectType: '',
+          budget: '',
+          timeline: '',
+          message: ''
+        });
+        setSubmitStatus('idle');
+      }, 3000);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleScheduleConsultation = () => {
@@ -52,25 +83,11 @@ const ContactPage = () => {
   const offices = [
     {
       name: 'Headquarters',
-      address: '123 Construction Avenue\nBusiness District, Metro City\nMC 12345, United States',
-      phone: '+1 (555) 123-4567',
-      email: 'info@alimranbuilders.com',
+      address: 'Address: 13-6-431/C/52, PVNR Express Way, Pillar No. 102, Ring Road,, Mehdipatnam, Hyderabad, Telangana 500067',
+      phone: '+91 95812 19373',
+      email: 'info@alimranbuildersanddevelopers.com',
       hours: 'Mon-Fri: 8:00 AM - 6:00 PM\nSat: 9:00 AM - 4:00 PM\nSun: Emergency only'
     },
-    {
-      name: 'Regional Office - North',
-      address: '456 Industrial Blvd\nNorth District, Metro City\nMC 12346, United States',
-      phone: '+1 (555) 123-4568',
-      email: 'north@alimranbuilders.com',
-      hours: 'Mon-Fri: 8:00 AM - 5:00 PM\nSat: 9:00 AM - 2:00 PM\nSun: Closed'
-    },
-    {
-      name: 'Regional Office - South',
-      address: '789 Commerce Street\nSouth District, Metro City\nMC 12347, United States',
-      phone: '+1 (555) 123-4569',
-      email: 'south@alimranbuilders.com',
-      hours: 'Mon-Fri: 8:00 AM - 5:00 PM\nSat: 9:00 AM - 2:00 PM\nSun: Closed'
-    }
   ];
 
   return (
@@ -243,12 +260,43 @@ const ContactPage = () => {
                     ></textarea>
                   </div>
                   
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-start">
+                      <CheckCircle className="text-green-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                      <div>
+                        <h4 className="font-semibold text-green-900">Message Sent Successfully!</h4>
+                        <p className="text-green-700 text-sm">Thank you {formData.firstName}! We'll contact you within 24 hours.</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start">
+                      <AlertCircle className="text-red-600 mr-3 flex-shrink-0 mt-0.5" size={20} />
+                      <div>
+                        <h4 className="font-semibold text-red-900">Failed to Send Message</h4>
+                        <p className="text-red-700 text-sm">Please try again or contact us directly at +91 95812 19373</p>
+                      </div>
+                    </div>
+                  )}
+                  
                   <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center"
+                    disabled={isSubmitting}
+                    className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <Send size={20} className="mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={20} className="mr-2 animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send size={20} className="mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -299,35 +347,12 @@ const ContactPage = () => {
                   </div>
                 ))}
               </div>
-
-              {/* Emergency Contact */}
-              <div className="mt-8 bg-red-50 border border-red-200 rounded-lg p-6">
-                <h3 className="text-lg font-bold text-red-900 mb-3">Emergency Contact</h3>
-                <p className="text-red-700 mb-2">For construction emergencies and urgent site issues:</p>
-                <p className="text-red-900 font-semibold">24/7 Emergency Line: +1 (555) 911-HELP</p>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Find Us</h2>
-            <p className="text-xl text-gray-600">Visit our offices or contact us to schedule a site visit</p>
-          </div>
-          
-          <div className="bg-gray-300 rounded-lg h-96 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin size={48} className="text-gray-500 mx-auto mb-4" />
-              <p className="text-gray-600">Interactive map would be integrated here</p>
-              <p className="text-sm text-gray-500">Showing all office locations and project sites</p>
-            </div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* CTA Section */}
       <section className="py-20 bg-blue-600 text-white">

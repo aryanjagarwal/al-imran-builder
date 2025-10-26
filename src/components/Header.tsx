@@ -13,17 +13,17 @@ const Header = () => {
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
       {/* Top contact bar */}
-      <div className="bg-blue-900 text-white py-2">
+      <div className="bg-blue-900 text-white py-2 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Phone size={14} />
-                <span>+91 095812 19373</span>
+                <span>+91 95812 19373</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail size={14} />
-                <span>info@alimranbuilders.com</span>
+                <span>info@alimranbuildersanddevelopers.com</span>
               </div>
             </div>
             <div className="hidden md:block">
