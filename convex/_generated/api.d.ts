@@ -8,7 +8,9 @@
  * @module
  */
 
+import type * as alimranMain from "../alimranMain.js";
 import type * as contacts from "../contacts.js";
+import type * as school from "../school.js";
 import type * as sendEmail from "../sendEmail.js";
 
 import type {
@@ -26,7 +28,9 @@ import type {
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  alimranMain: typeof alimranMain;
   contacts: typeof contacts;
+  school: typeof school;
   sendEmail: typeof sendEmail;
 }>;
 declare const fullApiWithMounts: typeof fullApi;

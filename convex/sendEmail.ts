@@ -35,7 +35,7 @@ export const send = mutation({
       },
       body: JSON.stringify({
         from: 'onboarding@resend.dev',
-        to: 'info@alimranbuildersanddevelopers.com',
+        to: 'info@alimranperfumes.com',
         subject: `New Contact Form: ${args.projectType} - ${args.firstName} ${args.lastName}`,
         html: emailContent,
         reply_to: args.email
