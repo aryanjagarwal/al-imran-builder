@@ -60,7 +60,7 @@ const AboutPage = () => {
       description: 'Integrated advanced technology solutions including BIM, IoT, and smart building systems.'
     },
     {
-      year: '2023',
+      year: '2025',
       title: 'Industry Leadership',
       description: 'Recognized as a top construction company with over 500 completed projects and numerous industry awards.'
     }
@@ -222,55 +222,8 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Leadership Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Leadership Team</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Meet the experienced professionals who lead our company with vision, expertise, and dedication.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {leadership.map((leader, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <img 
-                  src={leader.image} 
-                  alt={leader.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{leader.name}</h3>
-                  <div className="text-blue-600 font-semibold mb-3">{leader.position}</div>
-                  <p className="text-gray-600 text-sm">{leader.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
-      {/* Certifications Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Certifications & Memberships</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our commitment to excellence is validated by industry-leading certifications and professional memberships.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-6 text-center hover:bg-blue-50 transition-colors">
-                <Trophy size={40} className="mx-auto mb-4 text-blue-600" />
-                <h3 className="text-lg font-semibold text-gray-900">{cert}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-20 bg-blue-600 text-white">

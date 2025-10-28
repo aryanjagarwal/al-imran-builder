@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, Mail } from "lucide-react";
+import logo from "../assets/left-header-logo.jpg";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -39,9 +40,14 @@ const Header = () => {
           <div className="flex items-center">
             <Link
               to="/"
-              className="text-2xl font-bold text-blue-900 hover:text-blue-700 transition-colors"
+              className="flex items-center hover:opacity-80 transition-opacity"
             >
-              Al Imran Builders & Developers
+              <img
+                src={logo}
+                alt="Al Imran Builders & Developers"
+                className="h-12 w-auto object-contain"
+              />
+              <h2 className="ml-3 text-xl font-bold text-gray-800">Al Imran Builders & Developers</h2>
             </Link>
           </div>
 
@@ -56,6 +62,16 @@ const Header = () => {
                 }`}
               >
                 Home
+              </Link>
+              <Link
+                to="/about"
+                className={`px-3 py-2 text-sm font-medium transition-colors ${
+                  isActive("/about")
+                    ? "text-blue-600"
+                    : "text-gray-700 hover:text-blue-600"
+                }`}
+              >
+                About
               </Link>
               <Link
                 to="/services"
@@ -78,14 +94,14 @@ const Header = () => {
                 Projects
               </Link>
               <Link
-                to="/about"
+                to="/news"
                 className={`px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive("/about")
+                  isActive("/news")
                     ? "text-blue-600"
                     : "text-gray-700 hover:text-blue-600"
                 }`}
               >
-                About
+                Explore Properties
               </Link>
               <Link
                 to="/careers"
@@ -97,16 +113,7 @@ const Header = () => {
               >
                 Careers
               </Link>
-              <Link
-                to="/news"
-                className={`px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive("/news")
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
-                }`}
-              >
-                News
-              </Link>
+
               <Link
                 to="/contact"
                 className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
@@ -198,7 +205,7 @@ const Header = () => {
               </Link>
               <Link
                 to="/contact"
-                className="block px-3 py-2 text-base font-medium bg-blue-600 text-white rounded-lg"
+                className="block bg-blue-600 text-white px-3 py-2 rounded-lg text-base font-medium hover:bg-blue-700 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact

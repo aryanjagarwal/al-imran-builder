@@ -208,23 +208,20 @@ const ProjectsPage = () => {
             <p className="text-xl text-blue-100">Our track record speaks for itself</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2">500+</div>
+              <div className="text-4xl font-bold text-orange-400 mb-2">50+</div>
               <div className="text-blue-100">Projects Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2">$2.5B+</div>
+              <div className="text-4xl font-bold text-orange-400 mb-2">$100Cr+</div>
               <div className="text-blue-100">Total Project Value</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2">98%</div>
+              <div className="text-4xl font-bold text-orange-400 mb-2">90%</div>
               <div className="text-blue-100">On-Time Completion</div>
             </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400 mb-2">15+</div>
-              <div className="text-blue-100">Industry Awards</div>
-            </div>
+           
           </div>
         </div>
       </section>
